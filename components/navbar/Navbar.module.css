@@ -1,0 +1,47 @@
+@keyframes borderSlide {
+    from {
+        width: 0;
+        left: 0;
+    }
+    to {
+        width: 100%;
+        left: 0;
+    }
+}
+
+.border-slide {
+    position: relative;
+    overflow: hidden;
+}
+
+.border-slide::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: rgb(220 38 38);
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.border-slide:hover::after {
+    width: 100%;
+    animation: borderSlide 0.3s normal;
+}
+
+.active {
+    position: relative;
+    overflow: hidden;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: rgb(220 38 38);
+    transition: none;
+}
