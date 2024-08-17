@@ -20,6 +20,8 @@ export const ReservationForm = () => {
     //     });
     // }, [date]);
 
+    // const allReservations = getAllReservations();
+
     return (
         <main className="my-12">
             <form
