@@ -1,8 +1,6 @@
 "use server";
 
 export const sendReservation = async (formData: FormData) => {
-    "use server";
-
     const user = {
         fullName: formData.get("fullName"),
         email: formData.get("email"),
