@@ -19,8 +19,8 @@ export const Navbar = () => {
     return (
         <nav className="absolute w-full text-primary-foreground">
             <div className="mx-10 flex h-32 items-center justify-between lg:text-2xl">
-                <div>
-                    <Link href="/">PASIONIS LOGO</Link>
+                <div className="tracking-widest">
+                    <Link href="/">PASIONIS</Link>
                 </div>
 
                 <ul className="flex gap-5">
