@@ -1,40 +1,86 @@
 "use server";
+import { redirect } from "next/navigation";
 
 import Reservation from "@/database/models/reservation";
 import connectDB from "@/database/mongodb";
+import { ReservationType, SendReservation } from "@/types";
+import { validateFormInputs } from "./validation";
+import { RESERVATION_TIME_OPTIONS } from "@/components/reservation-form";
 
-type Reservation = {
-    fullName: string;
-    email: string;
-    date: string;
-    time: string;
-};
-
-export const getAllReservations = async (): Promise<Reservation[]> => {
+export const getAllReservations = async (): Promise<ReservationType[]> => {
     await connectDB();
 
     return await Reservation.find();
 };
 
-export const sendReservation = async (formData: FormData) => {
+export const getAvailableTimes = async (date: string) => {
     await connectDB();
+    const allReservations = await Reservation.find();
+
+    return RESERVATION_TIME_OPTIONS.filter((time) => {
+        return !allReservations.some(
+            (reservation) =>
+                reservation.date === date && reservation.time === time,
+        );
+    });
+};
+
+export const sendReservation = async (
+    previousState: SendReservation,
+    formData: FormData,
+): Promise<SendReservation> => {
+    await connectDB();
+
     const reservation = {
-        fullName: formData.get("fullName"),
-        email: formData.get("email"),
-        date: formData.get("date"),
-        time: formData.get("time"),
+        fullName: formData.get("fullName") as string,
+        email: formData.get("email") as string,
+        date: formData.get("date") as string,
+        time: formData.get("time") as string,
     };
 
-    const existingReservations = await Reservation.findOne<Reservation>({
+    const { fullNameError, emailError, dateError, timeError } =
+        validateFormInputs(reservation);
+
+    if (fullNameError || emailError || dateError || timeError) {
+        return {
+            message: "Molimo Vas da popunite sva polja",
+            errors: {
+                fullNameError,
+                emailError,
+                dateError,
+                timeError,
+            },
+        };
+    }
+
+    const existingReservationByUser =
+        await Reservation.findOne<ReservationType>({
+            email: reservation.email,
+            date: reservation.date,
+        });
+
+    if (existingReservationByUser) {
+        return {
+            message: "Već ste rezervisali termin za izabrani datum",
+            errors: null,
+        };
+    }
+
+    const existingTime = await Reservation.findOne<ReservationType>({
         date: reservation.date,
         time: reservation.time,
     });
 
-    if (existingReservations) {
-        return "Već postoji rezervacija za taj termin";
+    if (existingTime) {
+        return {
+            message: "Već postoji rezervacija za izabrani datum i vreme",
+            errors: {
+                timeError: "Izaberite drugo vreme",
+            },
+        };
     }
 
     await Reservation.create(reservation);
 
-    return "Uspešna rezervacija";
+    redirect("/");
 };

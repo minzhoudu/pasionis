@@ -1,4 +1,8 @@
-import { sendReservation } from "@/lib/actions";
+"use client";
+
+import { useFormState } from "react-dom";
+
+import { getAvailableTimes, sendReservation } from "@/lib/actions";
 import {
     Select,
     SelectContent,
@@ -8,24 +12,27 @@ import {
 } from "../ui/select";
 
 import { RESERVATION_TIME_OPTIONS } from "./mock";
+import { Button } from "./submit-button";
+import { useState } from "react";
 
 export const ReservationForm = () => {
-    // //TODO This logic should be on the server
-    // const reservationTimes = useMemo(() => {
-    //     return RESERVATION_TIME_OPTIONS.filter((time) => {
-    //         return !RESERVATIONS.some(
-    //             (reservation) =>
-    //                 reservation.date === date && reservation.time === time,
-    //         );
-    //     });
-    // }, [date]);
+    const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
-    // const allReservations = getAllReservations();
+    const getTimeOptions = async (date: string) => {
+        const times = await getAvailableTimes(date);
+
+        setTimeOptions(times);
+    };
+
+    const [{ message, errors }, formAction] = useFormState(sendReservation, {
+        message: "",
+        errors: null,
+    });
 
     return (
         <main className="my-12">
             <form
-                action={sendReservation}
+                action={formAction}
                 className="flex w-[300px] flex-col items-center justify-center gap-8 lg:text-lg"
             >
                 <div className="w-full">
@@ -36,14 +43,14 @@ export const ReservationForm = () => {
                         id="fullName"
                         name="fullName"
                         placeholder="Vaše ime i prezime"
+                        required
                     />
-                    {/* {errors.fullName && (
+                    {errors?.fullNameError && (
                         <p className="mt-1 text-center text-sm text-red-600">
-                            {errors.fullName}
+                            {errors.fullNameError}
                         </p>
-                    )} */}
+                    )}
                 </div>
-
                 <div className="w-full">
                     <label htmlFor="email">Email</label>
                     <input
@@ -52,9 +59,14 @@ export const ReservationForm = () => {
                         id="email"
                         name="email"
                         placeholder="npr. email@gmail.com"
+                        required
                     />
+                    {errors?.emailError && (
+                        <p className="mt-1 text-center text-sm text-red-600">
+                            {errors.emailError}
+                        </p>
+                    )}
                 </div>
-
                 <div className="w-full">
                     <label htmlFor="date">Datum</label>
                     <input
@@ -62,28 +74,43 @@ export const ReservationForm = () => {
                         type="date"
                         id="date"
                         name="date"
+                        onChange={(e) => getTimeOptions(e.target.value)}
+                        required
                     />
+                    {errors?.dateError && (
+                        <p className="mt-1 text-center text-sm text-red-600">
+                            {errors.dateError}
+                        </p>
+                    )}
                 </div>
-
-                <div className="w-full">
-                    <label htmlFor="time">Slobodni termini</label>
-                    <Select name="time">
-                        <SelectTrigger className="mt-2 w-full font-bold text-black lg:text-lg">
-                            <SelectValue placeholder="Izaberite vreme" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {RESERVATION_TIME_OPTIONS.map((time) => (
-                                <SelectItem value={time} key={time}>
-                                    {time}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                <button className="hover rounded-lg border border-red-600 px-5 py-2 font-bold transition duration-500 hover:border-primary-foreground hover:bg-primary-foreground hover:text-black">
-                    Rezerviši termin
-                </button>
+                {timeOptions.length > 0 && (
+                    <div className="w-full">
+                        <label htmlFor="time">Slobodni termini</label>
+                        <Select name="time">
+                            <SelectTrigger className="mt-2 w-full font-bold text-black lg:text-lg">
+                                <SelectValue placeholder="Izaberite vreme" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {timeOptions.map((time) => (
+                                    <SelectItem value={time} key={time}>
+                                        {time}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        {errors?.timeError && (
+                            <p className="mt-1 text-center text-sm text-red-600">
+                                {errors.timeError}
+                            </p>
+                        )}
+                    </div>
+                )}
+                {message && (
+                    <p className="mt-1 text-center text-sm text-red-600">
+                        {message}
+                    </p>
+                )}
+                <Button>Rezerviši termin</Button>
             </form>
         </main>
     );
