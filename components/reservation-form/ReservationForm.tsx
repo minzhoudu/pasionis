@@ -75,6 +75,14 @@ export const ReservationForm = () => {
                         id="date"
                         name="date"
                         onChange={(e) => getTimeOptions(e.target.value)}
+                        min={new Date().toISOString().split("T")[0]}
+                        max={
+                            new Date(
+                                new Date().setDate(new Date().getDate() + 7),
+                            )
+                                .toISOString()
+                                .split("T")[0]
+                        }
                         required
                     />
                     {errors?.dateError && (
