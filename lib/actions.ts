@@ -16,7 +16,7 @@ export const getAllReservations = async (): Promise<ReservationType[]> => {
 export const getAvailableTimes = async (date: string) => {
     try {
         await connectDB();
-        const allReservations = await Reservation.find();
+        const allReservations = await Reservation.find({ date });
 
         return RESERVATION_TIME_OPTIONS.filter((time) => {
             return !allReservations.some(
