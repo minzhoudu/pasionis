@@ -11,17 +11,20 @@ import {
     SelectValue,
 } from "../ui/select";
 
-import { RESERVATION_TIME_OPTIONS } from "./mock";
 import { Button } from "./submit-button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const ReservationForm = () => {
+    const [loadingTimes, setLoadingTimes] = useState(false);
+
+    const dateInputRef = useRef<HTMLInputElement>(null);
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
     const getTimeOptions = async (date: string) => {
+        setLoadingTimes(true);
         const times = await getAvailableTimes(date);
-
         setTimeOptions(times);
+        setLoadingTimes(false);
     };
 
     const [{ message, errors }, formAction] = useFormState(sendReservation, {
@@ -74,6 +77,8 @@ export const ReservationForm = () => {
                         type="date"
                         id="date"
                         name="date"
+                        ref={dateInputRef}
+                        onClick={() => dateInputRef?.current?.showPicker()}
                         onChange={(e) => getTimeOptions(e.target.value)}
                         min={new Date().toISOString().split("T")[0]}
                         max={
@@ -91,7 +96,7 @@ export const ReservationForm = () => {
                         </p>
                     )}
                 </div>
-                {timeOptions.length > 0 && (
+                {!loadingTimes && timeOptions.length > 0 && (
                     <div className="w-full">
                         <label htmlFor="time">Slobodni termini</label>
                         <Select name="time">
@@ -112,6 +117,11 @@ export const ReservationForm = () => {
                             </p>
                         )}
                     </div>
+                )}
+                {loadingTimes && (
+                    <h3 className="animate-pulse text-xs">
+                        Učitavaju se termini...
+                    </h3>
                 )}
                 {message && (
                     <p className="mt-1 text-center text-sm text-red-600">

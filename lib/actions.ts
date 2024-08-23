@@ -14,15 +14,19 @@ export const getAllReservations = async (): Promise<ReservationType[]> => {
 };
 
 export const getAvailableTimes = async (date: string) => {
-    await connectDB();
-    const allReservations = await Reservation.find();
+    try {
+        await connectDB();
+        const allReservations = await Reservation.find();
 
-    return RESERVATION_TIME_OPTIONS.filter((time) => {
-        return !allReservations.some(
-            (reservation) =>
-                reservation.date === date && reservation.time === time,
-        );
-    });
+        return RESERVATION_TIME_OPTIONS.filter((time) => {
+            return !allReservations.some(
+                (reservation) =>
+                    reservation.date === date && reservation.time === time,
+            );
+        });
+    } catch (error) {
+        return [];
+    }
 };
 
 export const sendReservation = async (
