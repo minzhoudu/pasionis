@@ -1,21 +1,17 @@
 "use server";
 import { redirect } from "next/navigation";
 
-import Reservation from "@/database/models/reservation";
-import connectDB from "@/database/mongodb";
-import { ReservationType, SendReservation } from "@/types";
-import { validateFormInputs } from "./validation";
 import { RESERVATION_TIME_OPTIONS } from "@/components/reservation-form";
+import Reservation from "@/database/models/reservation";
+import { ReservationType, SendReservation } from "@/types";
+import { validateFormInputs } from "../validation";
 
 export const getAllReservations = async (): Promise<ReservationType[]> => {
-    await connectDB();
-
     return await Reservation.find();
 };
 
 export const getAvailableTimes = async (date: string) => {
     try {
-        await connectDB();
         const allReservations = await Reservation.find({ date });
 
         return RESERVATION_TIME_OPTIONS.filter((time) => {
@@ -33,8 +29,6 @@ export const sendReservation = async (
     previousState: SendReservation,
     formData: FormData,
 ): Promise<SendReservation> => {
-    await connectDB();
-
     const reservation = {
         fullName: formData.get("fullName") as string,
         email: formData.get("email") as string,
@@ -86,5 +80,6 @@ export const sendReservation = async (
 
     await Reservation.create(reservation);
 
+    // revalidatePath("/reservation");
     redirect("/");
 };

@@ -2,7 +2,10 @@
 
 import { useFormState } from "react-dom";
 
-import { getAvailableTimes, sendReservation } from "@/lib/actions";
+import {
+    getAvailableTimes,
+    sendReservation,
+} from "@/lib/actions/reservation-actions";
 import {
     Select,
     SelectContent,

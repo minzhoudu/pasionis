@@ -1,8 +1,28 @@
-export const AdminForm = () => {
+"use client";
+
+import { loginOrSignup } from "@/lib/actions/auth-actions";
+import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
+
+type AdminFormProps = {
+    mode: "register" | "login";
+    isAuthenticated?: boolean;
+};
+
+export const AdminForm = async ({ mode, isAuthenticated }: AdminFormProps) => {
+    const [{ errors }, formAction] = useFormState(
+        loginOrSignup.bind(null, mode),
+        {},
+    );
+
+    if (isAuthenticated) {
+        redirect("/admin/dashboard");
+    }
+
     return (
         <main className="my-12">
             <form
-                action=""
+                action={formAction}
                 className="flex w-[300px] flex-col items-center justify-center gap-8 lg:text-lg"
             >
                 <div className="w-full">
@@ -15,6 +35,11 @@ export const AdminForm = () => {
                         placeholder="Unesi email adresu"
                         required
                     />
+                    {errors?.email && (
+                        <p className="mt-1 text-center text-sm text-red-600">
+                            {errors.email}
+                        </p>
+                    )}
                 </div>
 
                 <div className="w-full">
@@ -27,11 +52,22 @@ export const AdminForm = () => {
                         placeholder="Unesi lozinku"
                         required
                     />
+                    {errors?.password && (
+                        <p className="mt-1 text-center text-sm text-red-600">
+                            {errors.password}
+                        </p>
+                    )}
                 </div>
 
                 <button className="hover rounded-lg border border-red-600 px-5 py-2 font-bold transition duration-500 hover:border-primary-foreground hover:bg-primary-foreground hover:text-black">
-                    Uloguj se
+                    {mode === "login" ? "Uloguj se" : "Registruj se"}
                 </button>
+
+                {errors?.general && (
+                    <p className="mt-1 text-center text-lg text-red-600">
+                        {errors.general}
+                    </p>
+                )}
             </form>
         </main>
     );
