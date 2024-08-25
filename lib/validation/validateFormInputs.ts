@@ -1,6 +1,6 @@
 import { ReservationError, ReservationType } from "@/types";
 
-export const validateFormInputs = (formData: ReservationType) => {
+export const validateFormInputs = (formData: Partial<ReservationType>) => {
     const errors: ReservationError = {};
 
     if (!formData.fullName) {

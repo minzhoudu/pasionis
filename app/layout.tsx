@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 
@@ -22,6 +24,7 @@ export default function RootLayout({
                 <Navbar />
                 <main className="h-screen bg-black text-primary-foreground">
                     {children}
+                    <ToastContainer />
                 </main>
             </body>
         </html>

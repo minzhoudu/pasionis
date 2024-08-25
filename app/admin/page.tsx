@@ -1,4 +1,4 @@
-import { AdminForm } from "@/components/admin-form";
+import { AdminForm } from "@/components/admin/admin-form";
 import { checkAuth } from "@/lib/actions/auth-actions";
 
 type AdminProps = {

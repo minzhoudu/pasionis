@@ -6,6 +6,7 @@ export type ReservationError = {
 };
 
 export type ReservationType = {
+    _id: string;
     fullName: string;
     email: string;
     date: string;

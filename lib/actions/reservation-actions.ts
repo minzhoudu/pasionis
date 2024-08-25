@@ -5,6 +5,7 @@ import { RESERVATION_TIME_OPTIONS } from "@/components/reservation-form";
 import Reservation from "@/database/models/reservation";
 import { ReservationType, SendReservation } from "@/types";
 import { validateFormInputs } from "../validation";
+import { revalidatePath } from "next/cache";
 
 export const getAllReservations = async (): Promise<ReservationType[]> => {
     return await Reservation.find();
@@ -82,4 +83,9 @@ export const sendReservation = async (
 
     // revalidatePath("/reservation");
     redirect("/");
+};
+
+export const deleteReservation = async (id: string) => {
+    await Reservation.findByIdAndDelete(id);
+    revalidatePath("/admin/dashboard", "layout");
 };

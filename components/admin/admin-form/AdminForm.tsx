@@ -9,7 +9,7 @@ type AdminFormProps = {
     isAuthenticated?: boolean;
 };
 
-export const AdminForm = async ({ mode, isAuthenticated }: AdminFormProps) => {
+export const AdminForm = ({ mode, isAuthenticated }: AdminFormProps) => {
     const [{ errors }, formAction] = useFormState(
         loginOrSignup.bind(null, mode),
         {},
