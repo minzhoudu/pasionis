@@ -16,13 +16,11 @@ import {
     SelectValue,
 } from "../ui/select";
 
-import dayjs, { locale } from "dayjs";
-import { useRef, useState } from "react";
+import dayjs from "dayjs";
+import { useState } from "react";
 import { Button } from "./submit-button";
-import { toast } from "react-toastify";
 
 export const ReservationForm = () => {
-    const formRef = useRef<HTMLFormElement>(null);
     const [loadingTimes, setLoadingTimes] = useState(false);
 
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
@@ -39,15 +37,9 @@ export const ReservationForm = () => {
         {},
     );
 
-    if (status === "success") {
-        toast.success(message, { toastId: status, position: "top-center" });
-        formRef.current?.reset();
-    }
-
     return (
         <main className="my-12">
             <form
-                ref={formRef}
                 action={formAction}
                 className="flex w-[300px] flex-col items-center justify-center gap-8 lg:text-lg"
             >
