@@ -15,64 +15,6 @@ export type ActionState = {
     };
 };
 
-export const signup = async (
-    _prevState: ActionState,
-    formData: FormData,
-): Promise<ActionState> => {
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
-    if (!email || !email.includes("@")) {
-        return {
-            errors: {
-                email: "Unesite validnu email adresu.",
-            },
-        };
-    }
-
-    if (!password || password.length < 8) {
-        return {
-            errors: {
-                password: "Lozinka mora imati najmanje 8 karaktera.",
-            },
-        };
-    }
-
-    const existingUser = await User.exists({ email });
-
-    if (existingUser) {
-        return {
-            errors: {
-                email: "Korisnik sa ovom email adresom već postoji.",
-            },
-        };
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    try {
-        await User.create({
-            email,
-            password: hashedPassword,
-        });
-
-        const jsonWebToken = jwt.sign({ email }, process.env.JWT_SECRET!);
-        cookies().set("auth", jsonWebToken, {
-            secure: process.env.NODE_ENV === "production",
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-            httpOnly: true,
-        });
-    } catch (error) {
-        return {
-            errors: {
-                general: "Došlo je do greške prilikom registracije.",
-            },
-        };
-    }
-
-    return {};
-};
-
 export const login = async (
     _prevState: ActionState,
     formData: FormData,
@@ -114,18 +56,6 @@ export const login = async (
     }
 
     return {};
-};
-
-export const loginOrSignup = async (
-    mode: "register" | "login",
-    prevState: ActionState,
-    formData: FormData,
-) => {
-    if (mode === "login") {
-        return login(prevState, formData);
-    }
-
-    return signup(prevState, formData);
 };
 
 export const logout = async () => {

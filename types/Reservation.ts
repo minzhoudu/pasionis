@@ -6,6 +6,7 @@ export type ReservationError = {
 };
 
 export type ReservationType = {
+    _id: string;
     fullName: string;
     email: string;
     date: string;
@@ -13,6 +14,6 @@ export type ReservationType = {
 };
 
 export type SendReservation = {
-    message: string;
-    errors: ReservationError | null;
+    message?: string;
+    errors?: ReservationError | null;
 };

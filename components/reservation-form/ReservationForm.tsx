@@ -1,6 +1,8 @@
 "use client";
 
+import "flatpickr/dist/flatpickr.min.css";
 import { useFormState } from "react-dom";
+import Flatpickr from "react-flatpickr";
 
 import {
     getAvailableTimes,
@@ -14,13 +16,13 @@ import {
     SelectValue,
 } from "../ui/select";
 
+import dayjs from "dayjs";
+import { useState } from "react";
 import { Button } from "./submit-button";
-import { useRef, useState } from "react";
 
 export const ReservationForm = () => {
     const [loadingTimes, setLoadingTimes] = useState(false);
 
-    const dateInputRef = useRef<HTMLInputElement>(null);
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
     const getTimeOptions = async (date: string) => {
@@ -30,10 +32,7 @@ export const ReservationForm = () => {
         setLoadingTimes(false);
     };
 
-    const [{ message, errors }, formAction] = useFormState(sendReservation, {
-        message: "",
-        errors: null,
-    });
+    const [{ message, errors }, formAction] = useFormState(sendReservation, {});
 
     return (
         <main className="my-12">
@@ -75,24 +74,33 @@ export const ReservationForm = () => {
                 </div>
                 <div className="w-full">
                     <label htmlFor="date">Datum</label>
-                    <input
-                        className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
-                        type="date"
-                        id="date"
+                    <Flatpickr
                         name="date"
-                        ref={dateInputRef}
-                        onClick={() => dateInputRef?.current?.showPicker()}
-                        onChange={(e) => getTimeOptions(e.target.value)}
-                        min={new Date().toISOString().split("T")[0]}
-                        max={
-                            new Date(
-                                new Date().setDate(new Date().getDate() + 7),
-                            )
-                                .toISOString()
-                                .split("T")[0]
-                        }
+                        id="date"
+                        className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
+                        placeholder="Izaberite datum"
+                        options={{
+                            minDate: dayjs().format(),
+                            maxDate: dayjs().add(7, "day").format(),
+                            disable: [
+                                function (date) {
+                                    return (
+                                        date.getDay() === 0 ||
+                                        date.getDay() === 6
+                                    );
+                                },
+                            ],
+                            locale: {
+                                firstDayOfWeek: 1,
+                            },
+                            onChange: ([date]) =>
+                                getTimeOptions(
+                                    dayjs(date).format("YYYY-MM-DD"),
+                                ),
+                        }}
                         required
                     />
+
                     {errors?.dateError && (
                         <p className="mt-1 text-center text-sm text-red-600">
                             {errors.dateError}

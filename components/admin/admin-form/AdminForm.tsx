@@ -1,28 +1,28 @@
 "use client";
 
-import { loginOrSignup } from "@/lib/actions/auth-actions";
+import { login } from "@/lib/actions/auth-actions";
 import { redirect } from "next/navigation";
 import { useFormState } from "react-dom";
 
 type AdminFormProps = {
-    mode: "register" | "login";
     isAuthenticated?: boolean;
 };
 
-export const AdminForm = async ({ mode, isAuthenticated }: AdminFormProps) => {
-    const [{ errors }, formAction] = useFormState(
-        loginOrSignup.bind(null, mode),
-        {},
-    );
+export const AdminForm = ({ isAuthenticated }: AdminFormProps) => {
+    const [{ errors }, formAction] = useFormState(login, {});
 
     if (isAuthenticated) {
         redirect("/admin/dashboard");
     }
 
+    async function asd(formData: FormData) {
+        formAction(formData);
+    }
+
     return (
         <main className="my-12">
             <form
-                action={formAction}
+                action={asd}
                 className="flex w-[300px] flex-col items-center justify-center gap-8 lg:text-lg"
             >
                 <div className="w-full">
@@ -60,7 +60,7 @@ export const AdminForm = async ({ mode, isAuthenticated }: AdminFormProps) => {
                 </div>
 
                 <button className="hover rounded-lg border border-red-600 px-5 py-2 font-bold transition duration-500 hover:border-primary-foreground hover:bg-primary-foreground hover:text-black">
-                    {mode === "login" ? "Uloguj se" : "Registruj se"}
+                    Uloguj se
                 </button>
 
                 {errors?.general && (
