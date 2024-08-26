@@ -52,7 +52,6 @@ export const sendReservation = async (
 
     if (fullNameError || emailError || dateError || timeError) {
         return {
-            status: "error",
             message: "Molimo Vas da popunite sva polja",
             errors: {
                 fullNameError,
@@ -71,7 +70,6 @@ export const sendReservation = async (
 
     if (existingReservationByUser) {
         return {
-            status: "error",
             message: "Već ste rezervisali termin za izabrani datum",
             errors: null,
         };
@@ -84,7 +82,6 @@ export const sendReservation = async (
 
     if (existingTime) {
         return {
-            status: "error",
             message: "Već postoji rezervacija za izabrani datum i vreme",
             errors: {
                 timeError: "Izaberite drugo vreme",
@@ -96,11 +93,7 @@ export const sendReservation = async (
 
     // revalidatePath("/reservation");
 
-    return {
-        status: "success",
-        message: "Uspešno ste rezervisali termin",
-        errors: null,
-    };
+    redirect("/?reservationSuccess=true");
 };
 
 export const deleteReservation = async (id: string) => {

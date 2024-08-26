@@ -32,10 +32,7 @@ export const ReservationForm = () => {
         setLoadingTimes(false);
     };
 
-    const [{ status, message, errors }, formAction] = useFormState(
-        sendReservation,
-        {},
-    );
+    const [{ message, errors }, formAction] = useFormState(sendReservation, {});
 
     return (
         <main className="my-12">
@@ -137,7 +134,7 @@ export const ReservationForm = () => {
                         Učitavaju se termini...
                     </h3>
                 )}
-                {errors && message && (
+                {message && (
                     <p className="mt-1 text-center text-sm text-red-600">
                         {message}
                     </p>

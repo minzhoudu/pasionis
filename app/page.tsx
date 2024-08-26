@@ -1,10 +1,22 @@
+import { HomepageToast } from "@/components/home/homepage-toast";
 import Link from "next/link";
 
 import { FaInstagram } from "react-icons/fa";
+import { toast } from "react-toastify";
 
-export default function Home() {
+type HomeProps = {
+    searchParams: {
+        reservationSuccess: "true" | "false";
+    };
+};
+
+export default function Home({
+    searchParams: { reservationSuccess },
+}: HomeProps) {
     return (
         <section className="flex h-screen w-full flex-col items-center justify-center gap-3">
+            <HomepageToast reservationSuccess={reservationSuccess} />
+
             <h1 className="text-5xl tracking-wider">
                 Frizerski Studio{" "}
                 <span className="rounded-md border border-red-600 px-3">
