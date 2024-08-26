@@ -14,6 +14,7 @@ export type ReservationType = {
 };
 
 export type SendReservation = {
-    message: string;
-    errors: ReservationError | null;
+    status?: "success" | "error";
+    message?: string;
+    errors?: ReservationError | null;
 };
