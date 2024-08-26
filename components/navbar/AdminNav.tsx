@@ -16,20 +16,20 @@ export const AdminNav = ({ userRole }: AdminNavProps) => {
         <>
             <Link
                 href="/admin/dashboard"
-                className={`py-10 ${path === "/admin/dashboard" ? styles.active : styles["border-slide"]}`}
+                className={`py-10 ${path === "/admin/dashboard" ? "text-red-700" : "text-primary-foreground"}`}
             >
                 Rezervacije
             </Link>
             <Link
                 href="/admin/dashboard/reservation-times"
-                className={`py-10 ${path === "/admin/dashboard/reservation-times" ? styles.active : styles["border-slide"]}`}
+                className={`py-10 ${path === "/admin/dashboard/reservation-times" ? "text-red-700" : "text-primary-foreground"}`}
             >
                 Termini
             </Link>
             {userRole && userRole === "owner" && (
                 <Link
-                    href="/admin/dashboard/admins"
-                    className={`py-10 ${path === "/admin/dashboard/admins" ? styles.active : styles["border-slide"]}`}
+                    href="/admin/dashboard/admin-list"
+                    className={`py-10 ${path === "/admin/dashboard/admin-list" ? "text-red-700" : "text-primary-foreground"}`}
                 >
                     Admini
                 </Link>

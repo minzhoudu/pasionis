@@ -26,3 +26,11 @@ export const getLoggedinUser = async () => {
         return null;
     }
 };
+
+export const getAdminUsers = async () => {
+    return await User.find<TUser>({ role: "admin" });
+};
+
+export const removeUser = async (userId: string) => {
+    await User.findByIdAndDelete(userId);
+};

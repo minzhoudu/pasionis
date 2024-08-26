@@ -1,7 +1,7 @@
 import { FilterType } from "@/components/admin/reservations-table/hooks/useGetFilteredReservations";
 import { ReservationsTable } from "@/components/admin/reservations-table/ReservationsTable";
+import { getLoggedinUser } from "@/database/queries/users";
 import { getAllReservations } from "@/lib/actions/reservation-actions";
-import { getLoggedinUser } from "@/lib/actions/user";
 
 type AdminDashboardProps = {
     searchParams: {

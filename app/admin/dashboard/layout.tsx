@@ -1,6 +1,6 @@
 import { AdminNav } from "@/components/navbar";
+import { getLoggedinUser } from "@/database/queries/users";
 import { checkAuth, logout } from "@/lib/actions/auth-actions";
-import { getLoggedinUser } from "@/lib/actions/user";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
@@ -15,7 +15,6 @@ export default async function AdminDashbordLayout({
     children: React.ReactNode;
 }>) {
     const isAuthorized = await checkAuth();
-
     if (!isAuthorized) {
         redirect("/admin");
     }
