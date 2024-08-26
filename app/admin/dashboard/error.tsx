@@ -7,7 +7,6 @@ type DashbordErrorPageProps = {
 };
 
 export default function DashboardErrorPage({ error }: DashbordErrorPageProps) {
-    console.log(error);
     return (
         <div className="text-center">
             <h1 className="text-2xl text-red-700">Došlo je do greške</h1>

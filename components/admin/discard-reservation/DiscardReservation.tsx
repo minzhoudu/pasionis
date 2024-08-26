@@ -1,5 +1,6 @@
 "use client";
 
+import dayjs from "dayjs";
 import { toast } from "react-toastify";
 
 type DiscardReservationProps = {
@@ -21,13 +22,12 @@ export const DiscardReservation = ({
                     <div>
                         <p>Otkazana rezervacija za:</p>
                         <p className="mb-2">{email}</p>
-                        <p>
-                            Datum: {new Date(datum).toLocaleDateString("sr-RS")}
-                        </p>
+                        <p>Datum: {dayjs(datum).format("DD/MM/YYYY")}</p>
                         <p>Vreme: {vreme}</p>
                     </div>,
                     {
                         autoClose: false,
+                        position: "top-center",
                     },
                 )
             }

@@ -8,7 +8,17 @@ import { validateFormInputs } from "../validation";
 import { revalidatePath } from "next/cache";
 
 export const getAllReservations = async (): Promise<ReservationType[]> => {
-    return await Reservation.find();
+    const dbReservations = await Reservation.find<ReservationType>();
+
+    return dbReservations.map((reservation) => {
+        return {
+            _id: reservation._id.toString(),
+            fullName: reservation.fullName,
+            email: reservation.email,
+            date: reservation.date,
+            time: reservation.time,
+        };
+    });
 };
 
 export const getAvailableTimes = async (date: string) => {
