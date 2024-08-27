@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
-import { ReservationType } from "@/types";
-
-export type FilterType =
-    | "allReservations"
-    | "currentReservations"
-    | "futureReservations"
-    | "pastReservations";
+import { FilterType, ReservationType } from "@/types";
 
 type UseGetFilteredReservations = {
     filteredReservations: ReservationType[];

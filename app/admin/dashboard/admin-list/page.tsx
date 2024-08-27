@@ -15,8 +15,10 @@ export default async function AdminListPage() {
                 <table className="min-w-full rounded-lg bg-gray-900 shadow-md">
                     <thead>
                         <tr className="bg-gray-800 text-sm uppercase leading-normal text-gray-400">
-                            <th className="px-6 py-3 text-left">Email</th>
-                            <th className="px-6 py-3 text-left">Ukloni</th>
+                            <th className="border border-gray-800 px-6 py-3 text-left">
+                                Email
+                            </th>
+                            <th className="px-6 py-3 text-center">Ukloni</th>
                         </tr>
                     </thead>
                     <tbody className="text-sm font-light text-gray-300">
@@ -25,10 +27,10 @@ export default async function AdminListPage() {
                                 key={admin._id}
                                 className="border-b border-gray-700 hover:bg-gray-800"
                             >
-                                <td className="whitespace-nowrap px-6 py-3 text-left">
+                                <td className="whitespace-nowrap border border-gray-800 px-6 py-3 text-left">
                                     {admin.email}
                                 </td>
-                                <td className="whitespace-nowrap px-6 py-3 text-center">
+                                <td className="whitespace-nowrap border border-gray-800 px-6 py-3 text-center">
                                     <form
                                         action={removeAdminUser.bind(
                                             null,

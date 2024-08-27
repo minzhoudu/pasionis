@@ -15,14 +15,10 @@ export const AdminForm = ({ isAuthenticated }: AdminFormProps) => {
         redirect("/admin/dashboard");
     }
 
-    async function asd(formData: FormData) {
-        formAction(formData);
-    }
-
     return (
         <main className="my-12">
             <form
-                action={asd}
+                action={formAction}
                 className="flex w-[300px] flex-col items-center justify-center gap-8 lg:text-lg"
             >
                 <div className="w-full">

@@ -6,9 +6,14 @@ mongoose.Promise = global.Promise;
 const reservationSchema = new Schema(
     {
         fullName: String,
-        email: String,
+        phone: String,
         date: String,
         time: String,
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            // expires: 60 * 60 * 24 * 365,
+        },
     },
     { timestamps: true },
 );

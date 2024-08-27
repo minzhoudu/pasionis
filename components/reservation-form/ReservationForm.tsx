@@ -22,7 +22,6 @@ import { Button } from "./submit-button";
 
 export const ReservationForm = () => {
     const [loadingTimes, setLoadingTimes] = useState(false);
-
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
     const getTimeOptions = async (date: string) => {
@@ -48,7 +47,6 @@ export const ReservationForm = () => {
                         id="fullName"
                         name="fullName"
                         placeholder="Vaše ime i prezime"
-                        required
                     />
                     {errors?.fullNameError && (
                         <p className="mt-1 text-center text-sm text-red-600">
@@ -57,18 +55,17 @@ export const ReservationForm = () => {
                     )}
                 </div>
                 <div className="w-full">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="phone">Broj telefona</label>
                     <input
                         className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="npr. email@gmail.com"
-                        required
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="npr. 0611234567"
                     />
-                    {errors?.emailError && (
+                    {errors?.phoneError && (
                         <p className="mt-1 text-center text-sm text-red-600">
-                            {errors.emailError}
+                            {errors.phoneError}
                         </p>
                     )}
                 </div>
@@ -98,7 +95,6 @@ export const ReservationForm = () => {
                                     dayjs(date).format("YYYY-MM-DD"),
                                 ),
                         }}
-                        required
                     />
 
                     {errors?.dateError && (
