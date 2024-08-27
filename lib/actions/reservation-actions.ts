@@ -62,19 +62,6 @@ export const sendReservation = async (
         };
     }
 
-    const existingReservationByUser =
-        await Reservation.findOne<ReservationType>({
-            email: reservation.email,
-            date: reservation.date,
-        });
-
-    if (existingReservationByUser) {
-        return {
-            message: "Već ste rezervisali termin za izabrani datum",
-            errors: null,
-        };
-    }
-
     const existingTime = await Reservation.findOne<ReservationType>({
         date: reservation.date,
         time: reservation.time,

@@ -22,7 +22,6 @@ import { Button } from "./submit-button";
 
 export const ReservationForm = () => {
     const [loadingTimes, setLoadingTimes] = useState(false);
-
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
     const getTimeOptions = async (date: string) => {

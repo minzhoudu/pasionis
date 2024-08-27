@@ -1,3 +1,4 @@
+import { TUser } from "@/types/User";
 import mongoose, { Schema } from "mongoose";
 
 mongoose.connect(process.env.MONGODB_URI!);
@@ -23,6 +24,6 @@ const userSchema = new Schema(
     { timestamps: true },
 );
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model<TUser>("User", userSchema);
 
 export default User;
