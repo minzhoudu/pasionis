@@ -9,11 +9,6 @@ const reservationSchema = new Schema(
         phone: String,
         date: String,
         time: String,
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            // expires: 60 * 60 * 24 * 365,
-        },
     },
     { timestamps: true },
 );
