@@ -1,4 +1,4 @@
-import { DeleteAdmin } from "@/components/admin/delete-admin/DeleteAdmin";
+import { DeleteAdmin } from "@/components/admin/admin-form/components/delete-admin/DeleteAdmin";
 import { getAdminUsers } from "@/database/queries/users";
 import { createAdminUser, removeAdminUser } from "@/lib/actions/user-actions";
 

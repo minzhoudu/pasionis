@@ -5,7 +5,7 @@ import { FilterType, ReservationType } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { FaCheck, FaInfinity } from "react-icons/fa";
-import { DiscardReservation } from "../discard-reservation/DiscardReservation";
+import { DiscardReservation } from "./components/discard-reservation/DiscardReservation";
 import { useGetFilteredReservations } from "./hooks/useGetFilteredReservations";
 import { isPastReservation, showCheck } from "./helpers";
 
