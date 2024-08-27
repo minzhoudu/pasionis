@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={font.className}>
+            <body className={`${font.className} select-none`}>
                 <Navbar />
                 <main className="h-screen bg-black text-primary-foreground">
                     {children}

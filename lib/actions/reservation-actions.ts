@@ -14,7 +14,7 @@ export const getAllReservations = async (): Promise<ReservationType[]> => {
         return {
             _id: reservation._id.toString(),
             fullName: reservation.fullName,
-            email: reservation.email,
+            phone: reservation.phone,
             date: reservation.date,
             time: reservation.time,
         };
@@ -42,20 +42,20 @@ export const sendReservation = async (
 ): Promise<SendReservation> => {
     const reservation = {
         fullName: formData.get("fullName") as string,
-        email: formData.get("email") as string,
+        phone: formData.get("phone") as string,
         date: formData.get("date") as string,
         time: formData.get("time") as string,
     };
 
-    const { fullNameError, emailError, dateError, timeError } =
+    const { fullNameError, phoneError, dateError, timeError } =
         validateFormInputs(reservation);
 
-    if (fullNameError || emailError || dateError || timeError) {
+    if (fullNameError || phoneError || dateError || timeError) {
         return {
             message: "Molimo Vas da popunite sva polja",
             errors: {
                 fullNameError,
-                emailError,
+                phoneError,
                 dateError,
                 timeError,
             },

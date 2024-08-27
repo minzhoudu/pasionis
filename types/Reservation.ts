@@ -1,6 +1,6 @@
 export type ReservationError = {
     fullNameError?: string;
-    emailError?: string;
+    phoneError?: string;
     dateError?: string;
     timeError?: string;
 };
@@ -8,7 +8,7 @@ export type ReservationError = {
 export type ReservationType = {
     _id: string;
     fullName: string;
-    email: string;
+    phone: string;
     date: string;
     time: string;
 };
@@ -17,3 +17,9 @@ export type SendReservation = {
     message?: string;
     errors?: ReservationError | null;
 };
+
+export type FilterType =
+    | "allReservations"
+    | "currentReservations"
+    | "futureReservations"
+    | "pastReservations";

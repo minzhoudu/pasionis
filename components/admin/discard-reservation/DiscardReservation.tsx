@@ -4,13 +4,15 @@ import dayjs from "dayjs";
 import { toast } from "react-toastify";
 
 type DiscardReservationProps = {
-    email: string;
+    fullName: string;
+    phone: string;
     vreme: string;
     datum: string;
 };
 
 export const DiscardReservation = ({
-    email,
+    fullName,
+    phone,
     vreme,
     datum,
 }: DiscardReservationProps) => {
@@ -19,9 +21,10 @@ export const DiscardReservation = ({
             className="border border-red-600 px-1 text-red-600"
             onClick={() =>
                 toast.warn(
-                    <div className="flex flex-col items-center justify-center gap-2">
+                    <div className="flex flex-col items-center justify-center gap-2 text-primary">
                         <p className="text-red-700">Otkazana rezervacija</p>
-                        <p>{email}</p>
+                        <p>Ime: {fullName}</p>
+                        <p>Br.Telefona: {phone}</p>
                         <p>Datum: {dayjs(datum).format("DD/MM/YYYY")}</p>
                         <p>Vreme: {vreme}</p>
                     </div>,

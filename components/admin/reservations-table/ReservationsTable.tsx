@@ -1,14 +1,13 @@
 "use client";
 
 import { deleteReservation } from "@/lib/actions/reservation-actions";
-import { ReservationType } from "@/types";
-import { ChangeEvent, Suspense, useState } from "react";
-import { DiscardReservation } from "../discard-reservation/DiscardReservation";
-import {
-    FilterType,
-    useGetFilteredReservations,
-} from "./hooks/useGetFilteredReservations";
+import { FilterType, ReservationType } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
+import { FaCheck, FaInfinity } from "react-icons/fa";
+import { DiscardReservation } from "../discard-reservation/DiscardReservation";
+import { useGetFilteredReservations } from "./hooks/useGetFilteredReservations";
+import { isPastReservation, showCheck } from "./helpers";
 
 type ReservationsTableProps = {
     selectedFilter?: FilterType;
@@ -61,9 +60,12 @@ export const ReservationsTable = ({
                             <th className="px-6 py-3 text-left">
                                 Ime i prezime
                             </th>
-                            <th className="px-6 py-3 text-left">Email</th>
+                            <th className="px-6 py-3 text-left">Br.Telefona</th>
                             <th className="px-6 py-3 text-left">Datum</th>
                             <th className="px-6 py-3 text-left">Vreme</th>
+                            {showCheck(reservationFilter) && (
+                                <th className="px-6 py-3 text-left">Status</th>
+                            )}
                             {role === "owner" && (
                                 <th className="px-6 py-3 text-left">
                                     Otkaži rezervaciju
@@ -82,7 +84,7 @@ export const ReservationsTable = ({
                                         {reservation.fullName}
                                     </td>
                                     <td className="whitespace-nowrap px-6 py-3 text-left">
-                                        {reservation.email}
+                                        {reservation.phone}
                                     </td>
                                     <td className="whitespace-nowrap px-6 py-3 text-left">
                                         {new Date(
@@ -92,6 +94,19 @@ export const ReservationsTable = ({
                                     <td className="whitespace-nowrap px-6 py-3 text-left">
                                         {reservation.time}
                                     </td>
+                                    {showCheck(reservationFilter) && (
+                                        <td className="whitespace-nowrap px-6 py-3 text-center">
+                                            {isPastReservation(reservation) ? (
+                                                <span className="text-green-500">
+                                                    <FaCheck className="mx-auto" />
+                                                </span>
+                                            ) : (
+                                                <span className="text-orange-500">
+                                                    <FaInfinity className="mx-auto" />
+                                                </span>
+                                            )}
+                                        </td>
+                                    )}
                                     {role === "owner" && (
                                         <td className="whitespace-nowrap px-6 py-3 text-center">
                                             <form
@@ -101,7 +116,10 @@ export const ReservationsTable = ({
                                                 )}
                                             >
                                                 <DiscardReservation
-                                                    email={reservation.email}
+                                                    fullName={
+                                                        reservation.fullName
+                                                    }
+                                                    phone={reservation.phone}
                                                     vreme={reservation.time}
                                                     datum={reservation.date}
                                                 />
