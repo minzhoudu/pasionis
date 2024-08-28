@@ -51,49 +51,57 @@ export const ReservationsTable = ({
                 <option value="futureReservations">Narednih 7 dana</option>
             </select>
 
-            <div className="max-h-72 overflow-y-auto">
+            <div className="max-h-72 max-w-80 overflow-y-auto overflow-x-scroll lg:max-w-full">
                 <table className="min-w-full overflow-hidden rounded-lg bg-gray-900 shadow-md">
                     <thead>
-                        <tr className="bg-gray-800 text-sm uppercase leading-normal text-gray-400">
-                            <th className="px-6 py-3 text-left">
+                        <tr className="bg-gray-800 text-xs uppercase leading-normal text-gray-400 lg:text-sm">
+                            <th className="px-4 py-2 text-left lg:px-6 lg:py-3">
                                 Ime i prezime
                             </th>
-                            <th className="px-6 py-3 text-left">Br.Telefona</th>
-                            <th className="px-6 py-3 text-left">Datum</th>
-                            <th className="px-6 py-3 text-left">Vreme</th>
+                            <th className="px-4 py-2 text-left lg:px-6 lg:py-3">
+                                Br.Telefona
+                            </th>
+                            <th className="px-4 py-2 text-left lg:px-6 lg:py-3">
+                                Datum
+                            </th>
+                            <th className="px-4 py-2 text-left lg:px-6 lg:py-3">
+                                Vreme
+                            </th>
                             {showCheck(reservationFilter) && (
-                                <th className="px-6 py-3 text-left">Status</th>
+                                <th className="px-4 py-2 text-left lg:px-6 lg:py-3">
+                                    Status
+                                </th>
                             )}
                             {role === "owner" && (
-                                <th className="px-6 py-3 text-left">
-                                    Otkaži rezervaciju
+                                <th className="px-4 py-2 text-left lg:px-6 lg:py-3">
+                                    Otkaži
                                 </th>
                             )}
                         </tr>
                     </thead>
                     {filteredReservations.length > 0 ? (
-                        <tbody className="text-sm font-light text-gray-300">
+                        <tbody className="text-xs font-light text-gray-300 lg:text-sm">
                             {filteredReservations.map((reservation) => (
                                 <tr
                                     key={reservation._id}
                                     className="border-b border-gray-700 hover:bg-gray-800"
                                 >
-                                    <td className="whitespace-nowrap px-6 py-3 text-left">
+                                    <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
                                         {reservation.fullName}
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-3 text-left">
+                                    <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
                                         {reservation.phone}
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-3 text-left">
+                                    <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
                                         {new Date(
                                             reservation.date,
                                         ).toLocaleDateString("sr-RS")}
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-3 text-left">
+                                    <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
                                         {reservation.time}
                                     </td>
                                     {showCheck(reservationFilter) && (
-                                        <td className="whitespace-nowrap px-6 py-3 text-center">
+                                        <td className="whitespace-nowrap px-4 py-2 text-center lg:px-6 lg:py-3">
                                             {isPastReservation(reservation) ? (
                                                 <span className="text-green-500">
                                                     <FaCheck className="mx-auto" />
@@ -106,7 +114,7 @@ export const ReservationsTable = ({
                                         </td>
                                     )}
                                     {role === "owner" && (
-                                        <td className="whitespace-nowrap px-6 py-3 text-center">
+                                        <td className="whitespace-nowrap px-4 py-2 text-center lg:px-6 lg:py-3">
                                             <form
                                                 action={deleteReservation.bind(
                                                     null,
@@ -128,10 +136,10 @@ export const ReservationsTable = ({
                             ))}
                         </tbody>
                     ) : (
-                        <tbody className="text-sm font-light text-gray-300">
+                        <tbody className="text-xs font-light text-gray-300 lg:text-sm">
                             <tr className="border-b border-gray-700 hover:bg-gray-800">
                                 <td
-                                    className="whitespace-nowrap px-6 py-3 text-left"
+                                    className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3"
                                     colSpan={4}
                                 >
                                     Nema rezervacija.

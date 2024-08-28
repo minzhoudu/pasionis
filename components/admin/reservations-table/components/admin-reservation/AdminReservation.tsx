@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { AddTimeButton } from "./AddReservation";
 
-export const AdminReservation = async () => {
+export const AdminReservation = () => {
     const [loadingTimes, setLoadingTimes] = useState(false);
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
@@ -36,6 +36,7 @@ export const AdminReservation = async () => {
                     className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
                     placeholder="Izaberi datum"
                     options={{
+                        disableMobile: true,
                         minDate: dayjs().format(),
                         maxDate: dayjs().add(7, "day").format(),
                         locale: {
