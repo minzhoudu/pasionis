@@ -32,7 +32,9 @@ export default async function AdminDashbordLayout({
                 </form>
             </div>
 
-            <div className="flex flex-grow justify-center">{children}</div>
+            <div className="flex w-1/2 flex-grow justify-center">
+                {children}
+            </div>
         </main>
     );
 }
