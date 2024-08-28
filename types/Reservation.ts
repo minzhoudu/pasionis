@@ -26,6 +26,6 @@ export type SendReservation = {
 
 export type FilterType =
     | "allReservations"
+    | "tomorrowReservations"
     | "currentReservations"
-    | "futureReservations"
-    | "pastReservations";
+    | "futureReservations";

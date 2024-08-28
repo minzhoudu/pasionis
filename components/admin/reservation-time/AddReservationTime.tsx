@@ -1,11 +1,11 @@
 "use client";
 
-import { addReservationTime } from "@/lib/actions/reservation-times-action";
 import { AddTimeButton } from "./components/add-time/AddTimeButton";
+import { RemoveTimeButton } from "./components/add-time/RemoveTimeButton";
 
 export const AddReservationTimeForm = () => {
     return (
-        <form action={addReservationTime}>
+        <form>
             <div className="flex flex-col items-center gap-5">
                 <label htmlFor="time" className="text-center">
                     Unesi vreme termina
@@ -15,10 +15,14 @@ export const AddReservationTimeForm = () => {
                     type="time"
                     id="time"
                     name="time"
+                    step={1800}
                     required
                 />
 
-                <AddTimeButton />
+                <div className="flex gap-5">
+                    <AddTimeButton />
+                    <RemoveTimeButton />
+                </div>
             </div>
         </form>
     );
