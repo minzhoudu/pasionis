@@ -36,7 +36,7 @@ export default function Home({
 
             <footer className="absolute bottom-5">
                 <Link
-                    href="https://www.instagram.com/"
+                    href="https://www.instagram.com/vasic.7/"
                     target="_blank"
                     className="flex gap-5 text-primary-foreground transition duration-300 hover:text-red-600"
                 >
