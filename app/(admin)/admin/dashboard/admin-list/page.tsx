@@ -7,7 +7,7 @@ export default async function AdminListPage() {
 
     return (
         <div className="flex flex-col">
-            <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center text-xl font-bold">
+            <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center font-bold lg:text-xl">
                 LISTA ADMINA
             </h1>
 
@@ -15,22 +15,24 @@ export default async function AdminListPage() {
                 <table className="min-w-full rounded-lg bg-gray-900 shadow-md">
                     <thead>
                         <tr className="bg-gray-800 text-sm uppercase leading-normal text-gray-400">
-                            <th className="border border-gray-800 px-6 py-3 text-left">
+                            <th className="border border-gray-800 px-4 py-2 text-left lg:px-6 lg:py-3">
                                 Email
                             </th>
-                            <th className="px-6 py-3 text-center">Ukloni</th>
+                            <th className="px-4 py-2 text-center lg:px-6 lg:py-3">
+                                Ukloni
+                            </th>
                         </tr>
                     </thead>
-                    <tbody className="text-sm font-light text-gray-300">
+                    <tbody className="text-xs font-light text-gray-300 lg:text-sm">
                         {admins.map((admin) => (
                             <tr
                                 key={admin._id}
                                 className="border-b border-gray-700 hover:bg-gray-800"
                             >
-                                <td className="whitespace-nowrap border border-gray-800 px-6 py-3 text-left">
+                                <td className="whitespace-nowrap border border-gray-800 px-4 py-2 text-left lg:px-6 lg:py-3">
                                     {admin.email}
                                 </td>
-                                <td className="whitespace-nowrap border border-gray-800 px-6 py-3 text-center">
+                                <td className="whitespace-nowrap border border-gray-800 px-4 py-2 text-center lg:px-6 lg:py-3">
                                     <form
                                         action={removeAdminUser.bind(
                                             null,
@@ -53,7 +55,7 @@ export default async function AdminListPage() {
                 <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center">
                     Dodaj novog admina
                 </h1>
-                <div className="w-full">
+                <div className="mx-auto w-2/3">
                     <label htmlFor="email">Email</label>
                     <input
                         className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
@@ -64,7 +66,7 @@ export default async function AdminListPage() {
                         required
                     />
                 </div>
-                <div className="w-full">
+                <div className="mx-auto w-2/3">
                     <label htmlFor="password">Lozinka</label>
                     <input
                         className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
@@ -75,7 +77,7 @@ export default async function AdminListPage() {
                         required
                     />
                 </div>
-                <button className="self-center rounded-md border border-red-700 px-3 py-1 text-center">
+                <button className="self-center rounded-md border border-red-700 px-3 py-2 text-center text-xs uppercase lg:text-base">
                     Dodaj novog admina
                 </button>
             </form>

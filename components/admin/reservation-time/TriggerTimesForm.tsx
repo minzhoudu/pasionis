@@ -8,7 +8,7 @@ type TriggerTimesFormProps = {
 
 export const TriggerTimesForm = ({ times }: TriggerTimesFormProps) => {
     return (
-        <div className="max-h-52 overflow-y-scroll rounded-md border p-2 md:p-5">
+        <div className="max-h-52 min-w-72 overflow-y-scroll rounded-md border p-2 md:p-5">
             <form className="flex flex-wrap justify-center gap-7">
                 {times.map((reservationTime) => (
                     <button

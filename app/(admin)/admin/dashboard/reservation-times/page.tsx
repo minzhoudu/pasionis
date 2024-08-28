@@ -7,8 +7,8 @@ export default async function ReservationTimesPage() {
     const allReservationTimes = await getAllReservationTimes();
 
     return (
-        <main className="flex w-1/2 flex-col gap-10">
-            <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center text-xl font-bold">
+        <main className="flex flex-col gap-10 lg:w-1/2">
+            <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center text-xs font-bold lg:text-xl">
                 KONFIGURIŠI TERMINE
             </h1>
 
