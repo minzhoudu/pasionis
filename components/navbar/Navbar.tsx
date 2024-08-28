@@ -9,8 +9,7 @@ const classes = "rounded-lg px-3 py-2 uppercase";
 
 const links = [
     { id: 1, href: "/", text: "Početna" },
-    { id: 2, href: "/prices", text: "Cene" },
-    { id: 3, href: "/contact", text: "Kontakt" },
+    { id: 2, href: "/contact", text: "Kontakt" },
 ];
 
 export const Navbar = () => {
@@ -26,7 +25,10 @@ export const Navbar = () => {
                 <ul className="flex gap-5">
                     {links.map((link) => {
                         return (
-                            <li key={link.id}>
+                            <li
+                                key={link.id}
+                                className={`${link.href === "/" ? "hidden lg:block" : ""}`}
+                            >
                                 <Link
                                     href={link.href}
                                     className={`${classes} ${path === link.href ? styles.active : styles["border-slide"]}`}

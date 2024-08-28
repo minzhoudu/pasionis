@@ -17,13 +17,13 @@ export default function Home({
         <section className="flex h-screen w-full flex-col items-center justify-center gap-3">
             <HomepageToast reservationSuccess={reservationSuccess} />
 
-            <h1 className="text-5xl tracking-wider">
+            <h1 className="text-xl tracking-wider lg:text-5xl">
                 Frizerski Studio{" "}
                 <span className="rounded-md border border-red-600 px-3">
                     PASIONIS
                 </span>
             </h1>
-            <p className="rounded-sm border-b border-red-600 px-2 text-lg">
+            <p className="rounded-sm border-b border-red-600 px-2 lg:text-lg">
                 Muški Frizerski Studio
             </p>
 
