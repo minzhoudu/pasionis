@@ -4,10 +4,10 @@ import { deleteReservation } from "@/lib/actions/reservation-actions";
 import { FilterType, ReservationType } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import { FaCheck, FaInfinity } from "react-icons/fa";
+import { FaCheck, FaRegClock } from "react-icons/fa";
 import { DiscardReservation } from "./components/discard-reservation/DiscardReservation";
-import { useGetFilteredReservations } from "./hooks/useGetFilteredReservations";
 import { isPastReservation, showCheck } from "./helpers";
+import { useGetFilteredReservations } from "./hooks/useGetFilteredReservations";
 
 type ReservationsTableProps = {
     selectedFilter?: FilterType;
@@ -102,7 +102,7 @@ export const ReservationsTable = ({
                                                 </span>
                                             ) : (
                                                 <span className="text-orange-500">
-                                                    <FaInfinity className="mx-auto" />
+                                                    <FaRegClock className="mx-auto" />
                                                 </span>
                                             )}
                                         </td>
