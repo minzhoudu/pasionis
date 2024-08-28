@@ -27,7 +27,7 @@ export default async function AdminDashbordLayout({
                 <AdminNav userRole={currentUser?.role} />
 
                 <form
-                    className="bottom-10 hidden lg:absolute lg:left-10"
+                    className="absolute bottom-10 hidden lg:left-10 lg:block"
                     action={logout}
                 >
                     <button className="rounded-md border border-red-600 px-3 py-1 transition duration-500 hover:border-primary-foreground hover:bg-primary-foreground hover:text-primary">
