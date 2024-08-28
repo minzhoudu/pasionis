@@ -77,7 +77,7 @@ export default async function AdminListPage() {
                         required
                     />
                 </div>
-                <button className="self-center rounded-md border border-red-700 px-3 py-2 text-center text-xs uppercase lg:text-base">
+                <button className="self-center rounded-md border border-red-700 px-3 py-2 text-center text-xs uppercase transition duration-500 hover:border-primary-foreground hover:bg-primary-foreground hover:text-primary lg:text-base">
                     Dodaj novog admina
                 </button>
             </form>
