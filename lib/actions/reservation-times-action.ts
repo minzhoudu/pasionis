@@ -8,7 +8,7 @@ export const addReservationTime = async (
 ): Promise<{ status: string }> => {
     const time = formData.get("time") as string;
 
-    if (!time) {
+    if (!time.trim()) {
         return { status: "error" };
     }
 
