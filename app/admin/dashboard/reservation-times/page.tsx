@@ -8,6 +8,10 @@ export default async function ReservationTimesPage() {
 
     return (
         <main className="flex w-1/2 flex-col gap-10">
+            <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center text-xl font-bold">
+                KONFIGURIŠI TERMINE
+            </h1>
+
             <TriggerTimesForm times={allReservationTimes} />
 
             <AddReservationTimeForm />
