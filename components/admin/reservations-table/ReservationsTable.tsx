@@ -5,7 +5,7 @@ import { FilterType, ReservationType } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { FaCheck, FaRegClock } from "react-icons/fa";
-import { DiscardReservation } from "./components/discard-reservation/DiscardReservation";
+import { AdminReservation, DiscardReservation } from "./components";
 import { isPastReservation, showCheck } from "./helpers";
 import { useGetFilteredReservations } from "./hooks/useGetFilteredReservations";
 
@@ -51,7 +51,7 @@ export const ReservationsTable = ({
                 <option value="futureReservations">Narednih 7 dana</option>
             </select>
 
-            <div className="max-h-96 overflow-y-auto">
+            <div className="max-h-72 overflow-y-auto">
                 <table className="min-w-full overflow-hidden rounded-lg bg-gray-900 shadow-md">
                     <thead>
                         <tr className="bg-gray-800 text-sm uppercase leading-normal text-gray-400">
@@ -141,6 +141,8 @@ export const ReservationsTable = ({
                     )}
                 </table>
             </div>
+
+            <AdminReservation />
         </div>
     );
 };

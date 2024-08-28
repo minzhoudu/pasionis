@@ -16,7 +16,7 @@ export default async function AdminDashboard({
     const loggedInUser = await getLoggedinUser();
 
     return (
-        <section className="flex flex-col gap-16">
+        <section className="flex flex-col gap-10">
             <h1 className="self-center rounded-md border-b border-red-700 px-5 py-3 text-center text-xl font-bold">
                 REZERVACIJE
             </h1>

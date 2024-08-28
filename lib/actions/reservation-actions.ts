@@ -95,3 +95,19 @@ export const deleteReservation = async (id: string) => {
     await Reservation.findByIdAndDelete(id);
     revalidatePath("/admin/dashboard", "layout");
 };
+
+export const addAdminReservation = async (formData: FormData) => {
+    const reservation = {
+        fullName: "Admin",
+        phone: "Admin",
+        date: formData.get("date") as string,
+        time: formData.get("time") as string,
+    };
+
+    if (!reservation.date || !reservation.time) {
+        return;
+    }
+
+    await Reservation.create(reservation);
+    revalidatePath("/admin/dashboard", "layout");
+};
