@@ -30,6 +30,21 @@ export const useGetFilteredReservations = (
             return;
         }
 
+        if (filter === "tomorrowReservations") {
+            const filteredReservations = allReservations.filter(
+                (reservation) => {
+                    const today = dayjs();
+                    const tomorrow = today.add(1, "day");
+                    const reservationDate = dayjs(reservation.date);
+
+                    return reservationDate.isSame(tomorrow, "day");
+                },
+            );
+
+            setReservations(filteredReservations);
+            return;
+        }
+
         if (filter === "futureReservations") {
             const filteredReservations = allReservations.filter(
                 (reservation) => {
@@ -41,19 +56,6 @@ export const useGetFilteredReservations = (
                         reservationDate.isAfter(dayjs(), "day") &&
                         reservationDate.isBefore(sevenDaysFromNow, "day")
                     );
-                },
-            );
-
-            setReservations(filteredReservations);
-            return;
-        }
-
-        if (filter === "pastReservations") {
-            const filteredReservations = allReservations.filter(
-                (reservation) => {
-                    const reservationDate = dayjs(reservation.date);
-
-                    return dayjs(reservationDate).isBefore(dayjs(), "day");
                 },
             );
 

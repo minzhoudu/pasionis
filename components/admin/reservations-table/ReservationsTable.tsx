@@ -46,11 +46,9 @@ export const ReservationsTable = ({
                 className="mb-2 rounded-md bg-primary px-3 py-1 text-primary-foreground outline-none"
             >
                 <option value="allReservations">Sve rezervacije</option>
-                <option value="currentReservations">
-                    Današnje rezervacije
-                </option>
+                <option value="currentReservations">Danas</option>
+                <option value="tomorrowReservations">Sutra</option>
                 <option value="futureReservations">Narednih 7 dana</option>
-                <option value="pastReservations">Prethodne rezervacije</option>
             </select>
 
             <div className="max-h-96 overflow-y-auto">
