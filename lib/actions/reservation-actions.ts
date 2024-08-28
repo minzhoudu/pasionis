@@ -106,6 +106,15 @@ export const addAdminReservation = async (formData: FormData) => {
         return;
     }
 
+    const existingTime = await Reservation.findOne<ReservationType>({
+        date: reservation.date,
+        time: reservation.time,
+    });
+
+    if (existingTime) {
+        return;
+    }
+
     await Reservation.create(reservation);
     revalidatePath("/admin/dashboard");
 };
