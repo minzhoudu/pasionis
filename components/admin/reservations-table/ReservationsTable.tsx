@@ -51,7 +51,7 @@ export const ReservationsTable = ({
                 <option value="futureReservations">Narednih 7 dana</option>
             </select>
 
-            <div className="max-h-72 max-w-80 overflow-y-auto overflow-x-scroll lg:max-w-full">
+            <div className="max-h-64 max-w-80 overflow-y-auto overflow-x-scroll lg:max-w-full">
                 <table className="min-w-full overflow-hidden rounded-lg bg-gray-900 shadow-md">
                     <thead>
                         <tr className="bg-gray-800 text-xs uppercase leading-normal text-gray-400 lg:text-sm">
@@ -86,10 +86,10 @@ export const ReservationsTable = ({
                                     key={reservation._id}
                                     className="border-b border-gray-700 hover:bg-gray-800"
                                 >
-                                    <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
+                                    <td className="max-w-44 overflow-x-scroll whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
                                         {reservation.fullName}
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
+                                    <td className="max-w-44 overflow-x-scroll whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
                                         {reservation.phone}
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2 text-left lg:px-6 lg:py-3">
