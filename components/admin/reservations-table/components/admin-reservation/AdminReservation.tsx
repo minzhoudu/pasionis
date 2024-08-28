@@ -34,7 +34,7 @@ export const AdminReservation = async () => {
                     name="date"
                     id="date"
                     className="mt-2 block w-full rounded-lg px-2 py-1 font-bold text-black lg:px-4 lg:py-2"
-                    placeholder="Izaberite datum"
+                    placeholder="Izaberi datum"
                     options={{
                         minDate: dayjs().format(),
                         maxDate: dayjs().add(7, "day").format(),

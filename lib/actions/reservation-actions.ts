@@ -86,14 +86,12 @@ export const sendReservation = async (
 
     await Reservation.create(reservation);
 
-    // revalidatePath("/reservation");
-
     redirect("/?reservationSuccess=true");
 };
 
 export const deleteReservation = async (id: string) => {
     await Reservation.findByIdAndDelete(id);
-    revalidatePath("/admin/dashboard", "layout");
+    revalidatePath("/admin/dashboard");
 };
 
 export const addAdminReservation = async (formData: FormData) => {
@@ -109,5 +107,5 @@ export const addAdminReservation = async (formData: FormData) => {
     }
 
     await Reservation.create(reservation);
-    revalidatePath("/admin/dashboard", "layout");
+    revalidatePath("/admin/dashboard");
 };
