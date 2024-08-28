@@ -1,11 +1,11 @@
 "use server";
 import { redirect } from "next/navigation";
 
-import { RESERVATION_TIME_OPTIONS } from "@/components/reservation-form";
 import Reservation from "@/database/models/reservation";
+import ReservationTime from "@/database/models/reservation-time";
 import { ReservationType, SendReservation } from "@/types";
-import { validateFormInputs } from "../validation";
 import { revalidatePath } from "next/cache";
+import { validateFormInputs } from "../validation";
 
 export const getAllReservations = async (): Promise<ReservationType[]> => {
     const dbReservations = await Reservation.find<ReservationType>();
@@ -24,13 +24,21 @@ export const getAllReservations = async (): Promise<ReservationType[]> => {
 export const getAvailableTimes = async (date: string) => {
     try {
         const allReservations = await Reservation.find({ date });
+        const reservationTimes = await ReservationTime.find().sort({ time: 1 });
 
-        return RESERVATION_TIME_OPTIONS.filter((time) => {
-            return !allReservations.some(
-                (reservation) =>
-                    reservation.date === date && reservation.time === time,
-            );
-        });
+        const availableTimes = reservationTimes
+            .filter((resTime) => {
+                if (!resTime.available) return false;
+
+                return !allReservations.some(
+                    (reservation) =>
+                        reservation.date === date &&
+                        reservation.time === resTime.time,
+                );
+            })
+            .map((resTime) => resTime.time);
+
+        return availableTimes;
     } catch (error) {
         return [];
     }

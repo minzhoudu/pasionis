@@ -8,7 +8,7 @@ export const addReservationTime = async (
 ): Promise<{ status: string }> => {
     const time = formData.get("time") as string;
 
-    if (!time) {
+    if (!time.trim()) {
         return { status: "error" };
     }
 
@@ -18,5 +18,26 @@ export const addReservationTime = async (
         return { status: "success" };
     } catch (error) {
         return { status: "error" };
+    }
+};
+
+export const triggerReservationTime = async (timeID: string) => {
+    try {
+        const reservationTime = await ReservationTime.findById(timeID);
+
+        if (!reservationTime) {
+            return {
+                status: "error",
+            };
+        }
+
+        reservationTime.available = !reservationTime.available;
+
+        await reservationTime.save();
+        revalidatePath("/admin/dashboard/reservation-times");
+    } catch (error) {
+        return {
+            status: "error",
+        };
     }
 };

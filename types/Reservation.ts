@@ -1,3 +1,9 @@
+export type ReservationTimeType = {
+    _id: string;
+    time: string;
+    available: boolean;
+};
+
 export type ReservationError = {
     fullNameError?: string;
     phoneError?: string;
