@@ -12,6 +12,11 @@ export const addReservationTime = async (
         return { status: "error" };
     }
 
+    const exists = await ReservationTime.findOne({ time });
+    if (exists) {
+        return { status: "error" };
+    }
+
     try {
         await ReservationTime.create({ time });
         revalidatePath("/admin/dashboard/reservation-times");

@@ -15,6 +15,7 @@ export const AddReservationTimeForm = () => {
                     type="time"
                     id="time"
                     name="time"
+                    step={1800}
                     required
                 />
 
