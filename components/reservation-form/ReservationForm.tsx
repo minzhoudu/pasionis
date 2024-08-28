@@ -20,7 +20,16 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { Button } from "./submit-button";
 
-export const ReservationForm = () => {
+type ReservationFormProps = {
+    workingOnWeekend: {
+        workingOnSaturday: boolean;
+        workingOnSunday: boolean;
+    };
+};
+
+export const ReservationForm = ({
+    workingOnWeekend: { workingOnSaturday, workingOnSunday },
+}: ReservationFormProps) => {
     const [isTimeChoosen, setIsTimeChoosen] = useState(false);
     const [loadingTimes, setLoadingTimes] = useState(false);
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
@@ -84,8 +93,10 @@ export const ReservationForm = () => {
                             disable: [
                                 function (date) {
                                     return (
-                                        date.getDay() === 0 ||
-                                        date.getDay() === 6
+                                        (date.getDay() === 0 &&
+                                            !workingOnSunday) ||
+                                        (date.getDay() === 6 &&
+                                            !workingOnSaturday)
                                     );
                                 },
                             ],

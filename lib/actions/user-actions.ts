@@ -16,6 +16,12 @@ export const createAdminUser = async (formData: FormData) => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
+    const exists = await User.exists({ email });
+
+    if (exists) {
+        return;
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({ email, password: hashedPassword });

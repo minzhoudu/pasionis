@@ -1,13 +1,15 @@
 import { AddReservationTimeForm } from "@/components/admin/reservation-time/AddReservationTime";
+import { EnableWeekendReservations } from "@/components/admin/reservation-time/EnableWeekendReservations";
 import { TriggerTimesForm } from "@/components/admin/reservation-time/TriggerTimesForm";
 import { getAllReservationTimes } from "@/database/queries/reservations";
 import { getLoggedinUser } from "@/database/queries/users";
-import { triggerReservationTime } from "@/lib/actions/reservation-times-action";
+import { isWorkingOnWeekend } from "@/lib/actions/reservation-actions";
 import { redirect } from "next/navigation";
 
 export default async function ReservationTimesPage() {
     const allReservationTimes = await getAllReservationTimes();
     const loggedInUser = await getLoggedinUser();
+    const settings = await isWorkingOnWeekend();
 
     if (!loggedInUser) {
         redirect("/login");
@@ -22,6 +24,8 @@ export default async function ReservationTimesPage() {
             </h1>
 
             <TriggerTimesForm times={allReservationTimes} role={role} />
+
+            <EnableWeekendReservations settings={settings} />
 
             {role === "owner" && <AddReservationTimeForm />}
         </main>

@@ -1,6 +1,7 @@
 "use server";
 
 import ReservationTime from "@/database/models/reservation-time";
+import Settings from "@/database/models/settings";
 import { revalidatePath } from "next/cache";
 
 export const addReservationTime = async (
@@ -61,4 +62,24 @@ export const triggerReservationTime = async (timeID: string) => {
             status: "error",
         };
     }
+};
+
+export const triggerWorkOnWeekend = async (
+    working_on_saturday: boolean = false,
+    working_on_sunday: boolean = false,
+) => {
+    const settings = await Settings.findOne({ type: "working-on-weekend" });
+    if (!settings) {
+        await Settings.create({
+            type: "working-on-weekend",
+            working_on_saturday,
+            working_on_sunday,
+        });
+    }
+
+    settings.working_on_saturday = working_on_saturday;
+    settings.working_on_sunday = working_on_sunday;
+
+    await settings.save();
+    revalidatePath("/admin/dashboard/reservation-times");
 };

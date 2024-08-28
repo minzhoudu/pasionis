@@ -6,6 +6,7 @@ import ReservationTime from "@/database/models/reservation-time";
 import { ReservationType, SendReservation } from "@/types";
 import { revalidatePath } from "next/cache";
 import { validateFormInputs } from "../validation";
+import Settings from "@/database/models/settings";
 
 export const getAllReservations = async (): Promise<ReservationType[]> => {
     const dbReservations = await Reservation.find<ReservationType>();
@@ -117,4 +118,13 @@ export const addAdminReservation = async (formData: FormData) => {
 
     await Reservation.create(reservation);
     revalidatePath("/admin/dashboard");
+};
+
+export const isWorkingOnWeekend = async () => {
+    const settings = await Settings.findOne({ type: "working-on-weekend" });
+
+    return {
+        workingOnSaturday: settings?.working_on_saturday,
+        workingOnSunday: settings?.working_on_sunday,
+    };
 };
