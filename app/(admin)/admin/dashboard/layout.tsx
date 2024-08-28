@@ -22,17 +22,21 @@ export default async function AdminDashbordLayout({
     const currentUser = await getLoggedinUser();
 
     return (
-        <main className="flex h-screen flex-row items-center">
-            <div className="flex w-[20%] flex-col border-r text-center uppercase">
+        <main className="flex h-screen flex-col items-center lg:flex-row">
+            <div className="flex w-[20%] justify-center gap-10 text-center uppercase lg:flex-col lg:gap-0 lg:border-r">
                 <AdminNav userRole={currentUser?.role} />
-                <form className="absolute bottom-10 left-10" action={logout}>
+
+                <form
+                    className="bottom-10 hidden lg:absolute lg:left-10"
+                    action={logout}
+                >
                     <button className="rounded-md border border-red-600 px-3 py-1 transition duration-500 hover:border-primary-foreground hover:bg-primary-foreground hover:text-primary">
                         Izloguj se
                     </button>
                 </form>
             </div>
 
-            <div className="flex w-1/2 flex-grow justify-center">
+            <div className="flex w-1/2 justify-center lg:flex-grow">
                 {children}
             </div>
         </main>

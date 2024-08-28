@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { ToastContainer } from "react-toastify";
-
+import { ReactNode } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import "./globals.css";
-import { Navbar } from "@/components/navbar";
+import "../../globals.css";
 
 export const metadata: Metadata = {
     title: "Frizerski Studio Pasionis",
@@ -13,18 +11,16 @@ export const metadata: Metadata = {
 
 const font = Montserrat({ subsets: ["latin"], weight: "400" });
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+type AdminLayoutProps = {
+    children: ReactNode;
+};
+
+export default function AdminLayout({ children }: AdminLayoutProps) {
     return (
         <html lang="en">
-            <body className={`${font.className} select-none`}>
-                <Navbar />
+            <body className={`${font.className}`}>
                 <main className="h-screen bg-black text-primary-foreground">
                     {children}
-                    <ToastContainer />
                 </main>
             </body>
         </html>

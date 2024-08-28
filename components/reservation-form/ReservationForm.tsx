@@ -21,6 +21,7 @@ import { useState } from "react";
 import { Button } from "./submit-button";
 
 export const ReservationForm = () => {
+    const [isTimeChoosen, setIsTimeChoosen] = useState(false);
     const [loadingTimes, setLoadingTimes] = useState(false);
     const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
@@ -29,6 +30,7 @@ export const ReservationForm = () => {
         const times = await getAvailableTimes(date);
         setTimeOptions(times);
         setLoadingTimes(false);
+        setIsTimeChoosen(true);
     };
 
     const [{ message, errors }, formAction] = useFormState(sendReservation, {});
@@ -124,6 +126,11 @@ export const ReservationForm = () => {
                             </p>
                         )}
                     </div>
+                )}
+                {!loadingTimes && timeOptions.length === 0 && isTimeChoosen && (
+                    <p className="text-center text-sm text-red-700">
+                        Nema slobodnih termina za izabrani datum
+                    </p>
                 )}
                 {loadingTimes && (
                     <h3 className="animate-pulse text-xs">
