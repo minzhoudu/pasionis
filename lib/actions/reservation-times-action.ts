@@ -26,6 +26,22 @@ export const addReservationTime = async (
     }
 };
 
+export const removeReservationTime = async (formData: FormData) => {
+    const time = formData.get("time") as string;
+
+    if (!time.trim()) {
+        return { status: "error" };
+    }
+
+    try {
+        await ReservationTime.deleteOne({ time });
+        revalidatePath("/admin/dashboard/reservation-times");
+        return { status: "success" };
+    } catch (error) {
+        return { status: "error" };
+    }
+};
+
 export const triggerReservationTime = async (timeID: string) => {
     try {
         const reservationTime = await ReservationTime.findById(timeID);
