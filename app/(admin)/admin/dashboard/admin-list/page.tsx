@@ -11,7 +11,7 @@ export default async function AdminListPage() {
                 LISTA ADMINA
             </h1>
 
-            <div className="my-10 max-h-72 overflow-y-scroll rounded-md lg:w-[500px]">
+            <div className="my-5 max-h-48 max-w-80 overflow-x-scroll overflow-y-scroll rounded-md lg:my-10 lg:w-[500px] lg:max-w-full">
                 <table className="min-w-full rounded-lg bg-gray-900 shadow-md">
                     <thead>
                         <tr className="bg-gray-800 text-sm uppercase leading-normal text-gray-400">
@@ -29,7 +29,7 @@ export default async function AdminListPage() {
                                 key={admin._id}
                                 className="border-b border-gray-700 hover:bg-gray-800"
                             >
-                                <td className="whitespace-nowrap border border-gray-800 px-4 py-2 text-left lg:px-6 lg:py-3">
+                                <td className="max-w-80 overflow-x-scroll whitespace-nowrap border border-gray-800 px-4 py-2 text-left lg:px-6 lg:py-3">
                                     {admin.email}
                                 </td>
                                 <td className="whitespace-nowrap border border-gray-800 px-4 py-2 text-center lg:px-6 lg:py-3">
