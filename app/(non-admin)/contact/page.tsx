@@ -21,11 +21,25 @@ export default function ContactPage() {
                     <span className="uppercase text-primary-foreground">
                         -{" "}
                         <a
-                            href="https://instagram.com/@vasic.7"
+                            href="https://instagram.com/vasic.7"
                             target="_blank"
                             className="underline"
                         >
                             @vasic.7
+                        </a>
+                    </span>
+                </p>
+
+                <p className="text-red-700">
+                    Adresa -
+                    <span className="uppercase text-primary-foreground">
+                        -{" "}
+                        <a
+                            href="https://maps.app.goo.gl/xG6FHZwUrZz3Smsm6"
+                            target="_blank"
+                            className="underline"
+                        >
+                            kosovska 1, 37000 Kruševac
                         </a>
                     </span>
                 </p>

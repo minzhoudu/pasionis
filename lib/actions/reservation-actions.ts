@@ -3,10 +3,15 @@ import { redirect } from "next/navigation";
 
 import Reservation from "@/database/models/reservation";
 import ReservationTime from "@/database/models/reservation-time";
-import { ReservationType, SendReservation } from "@/types";
+import {
+    ReservationType,
+    SendReservation,
+    WorkingOnWeekendSetting,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 import { validateFormInputs } from "../validation";
 import Settings from "@/database/models/settings";
+import dayjs from "dayjs";
 
 export const getAllReservations = async (): Promise<ReservationType[]> => {
     const dbReservations = await Reservation.find<ReservationType>();
@@ -81,6 +86,25 @@ export const sendReservation = async (
             message: "Već postoji rezervacija za izabrani datum i vreme",
             errors: {
                 timeError: "Izaberite drugo vreme",
+            },
+        };
+    }
+
+    const isSaturday = dayjs(reservation.date).day() === 6;
+    const isSunday = dayjs(reservation.date).day() === 0;
+
+    const settings = await Settings.findOne<WorkingOnWeekendSetting>({
+        type: "working-on-weekend",
+    });
+
+    if (
+        (isSaturday && !settings?.workingOnSaturday) ||
+        (isSunday && !settings?.workingOnSunday)
+    ) {
+        return {
+            message: "Frizerski studio ne radi ovog datuma",
+            errors: {
+                dateError: "Izaberite drugi datum",
             },
         };
     }
